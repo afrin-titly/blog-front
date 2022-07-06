@@ -19,7 +19,6 @@ const NewPost = () => {
     navigate(`/posts/${response}`)
     console.log(response)
   }
-console.log(post)
   return (
     <PostForm handlePost={handleCreatePost} setPost={setPost} post={post} text="Create Post"/>
   )

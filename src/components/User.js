@@ -33,11 +33,10 @@ const User = ({id = null, mypage=false}) => {
     if (!mypage){
       getUserInfo()
     }
-
-  },[userPosts])
+  },[])
 
   const renderPosts = userPosts?.map((post)=>(
-    <PostCard key={post.id} post={post} mypage={mypage} />
+    <PostCard key={post.id} post={post} mypage={mypage} getUserPosts={getUserPosts} />
   ))
 
   const startToFollow = async () => {
