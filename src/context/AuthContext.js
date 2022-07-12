@@ -1,7 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Buffer } from "buffer";
 import token from "../lib/token";
-import history from "../history";
 import { authenticate } from '../lib/session'
 import { useNavigate } from 'react-router-dom'
 
