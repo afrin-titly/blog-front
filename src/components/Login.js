@@ -8,14 +8,14 @@ import { authenticate } from '../lib/session'
 function Login() {
   const [user, setUser] = React.useState({})
   const navigate = useNavigate();
-  const { setCurrentUser } = useAuthContext()
+  const { setValidToken, userLogin } = useAuthContext()
 
   const loginUser = async (e) => {
     e.preventDefault()
     const response = await authenticate(user)
     if(response.data.message) {
       toast.success(response.data.message)
-      setCurrentUser(response.data.name)
+      setValidToken(true)
       navigate('/home')
     } else {
       console.log(response.data)

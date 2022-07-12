@@ -38,7 +38,7 @@ const Home = () => {
           { renderPosts }
         </div>
         <div className='p-5 w-1/3'>
-          <h3 className='text-center font-bold text-2xl'> You may also follow (replace by most popular) </h3>
+          <h3 className='text-center font-bold text-2xl'> You may also follow </h3>
           <ul className='text-center'>
             { renderSuggestedUsers}
           </ul>

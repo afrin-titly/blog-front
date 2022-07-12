@@ -26,15 +26,6 @@ function App() {
         <Layout>
           <Toaster />
           <Routes>
-            {/* <PublicRoute exact path="/login" component={Login} /> */}
-            {/* <Route
-            path='/'
-            element={
-              <PrivateRoute>
-                <Home />
-              </PrivateRoute>
-            }
-            /> */}
             <Route path="/login" element={<Login />} />
             <Route path='/signup' element={ <Signup />} />
             <Route path='/*' element={<PrivateOutlet />}>

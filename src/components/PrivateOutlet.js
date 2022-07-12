@@ -1,15 +1,18 @@
 import React from "react";
 import { Navigate, Outlet } from "react-router-dom";
+import { useAuthContext } from "../context/AuthContext";
 
-const PrivateRoute = () => {
-  const [jwttoken, setjwtToken] = React.useState()
-  React.useEffect(()=>{
-    const token = localStorage.getItem('token')
-    if(token) {
-      setjwtToken(token)
-    }
-  }, [])
-  return localStorage.getItem('token') ? <Outlet /> : <Navigate to="/login" />
+const PrivateOutlet = () => {
+  const { isExpired, validToken, setValidToken } = useAuthContext()
+  const getAuthStatus = async () => {
+    await isExpired()
+  }
+React.useEffect(()=>{
+  console.log(validToken)
+  getAuthStatus()
+}, [validToken, getAuthStatus])
+
+  return validToken ? <Outlet /> : <Navigate to="/login" />
 }
 
-export default PrivateRoute
+export default PrivateOutlet

@@ -1,41 +1,53 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Buffer } from "buffer";
-
+import token from "../lib/token";
+import history from "../history";
+import { authenticate } from '../lib/session'
+import { useNavigate } from 'react-router-dom'
 
 const AuthContext = React.createContext()
 
 export const AuthProvider = ( {children })=> {
   const [currentUser, setCurrentUser] = React.useState('')
+  const [validToken, setValidToken] = React.useState(false)
+  const navigate = useNavigate();
 
-
-  const token = localStorage.getItem('token')
   const decoded = React.useRef('')
-  useEffect(()=>{
-    if(token) {
-      const tokenDecodablePart = token.split('.')[1];
+
+  // const userLogin = async (user) => {
+  //   const res = await authenticate(user)
+  //   setValidToken(true)
+  //   navigate('/home')
+  // }
+
+  const isExpired = async () =>{
+    const jwt = await token()
+    if(jwt) {
+      const tokenDecodablePart = jwt.split('.')[1];
       decoded.current = Buffer.from(tokenDecodablePart, 'base64').toString()
       const json = JSON.parse(decoded.current)
       if(json.exp < Date.now()/1000) {
-        clearToken()
+        localStorage.clear()
+        setValidToken(false)
+      } else {
+        return true
       }
-    } else {
-      console.log("no token")
     }
-  }, [token])
+  }
 
   const clearToken = () => {
     localStorage.removeItem('token')
     setCurrentUser(false)
   }
 
-  const user = async () => {
-
-  }
-
   const value = {
     currentUser,
     setCurrentUser,
     clearToken,
+    validToken,
+    setValidToken,
+    isExpired,
+    // userLogin,
   }
 
   return (
