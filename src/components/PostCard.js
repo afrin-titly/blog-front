@@ -6,6 +6,8 @@ import { deletePost } from '../lib/posts'
 import toast from 'react-hot-toast'
 
 export const PostCard = ({post, mypage, getUserPosts}) => {
+  const node = React.createRef()
+  const [showDropdown, setShowDropdown] = React.useState(false)
 
   const deletepost = async () => {
     const response = await deletePost(parseInt(post.id, 10))
@@ -16,12 +18,30 @@ export const PostCard = ({post, mypage, getUserPosts}) => {
     } else {
       toast.error(response)
     }
-
   }
+
+  // this was used to handle outside click for the dropdown menu
+  React.useEffect(() => {
+    const clickOutside = (e) => {
+      if(node.current && !node.current.contains(e.target)) {
+        setShowDropdown(false)
+      }
+    }
+    window.addEventListener('mousedown', clickOutside);
+    // clean up function before running new effect
+    return () => {
+        window.removeEventListener('mousedown', clickOutside);
+    }
+  },[showDropdown])
+
   return (
     <div className="p-6 max-w-sm md:max-w-3xl bg-white rounded-lg border border-gray-200 shadow-md dark:white dark:border-gray-700">
       <div className='float-right'>
-        { mypage && <MoreMenu DropdownList={<DropdownList post={post} deletepost={deletepost} />} /> }
+        { mypage && <MoreMenu
+        DropdownList={<DropdownList post={post} deletepost={deletepost} inputRef={node} />}
+        showDropdown={showDropdown}
+        setShowDropdown={setShowDropdown}
+        /> }
       </div>
       <Link to={`/posts/${post.id}`}>
         <h5 className="mb-2 text-2xl font-bold tracking-tight text-black">{post.title}</h5>
