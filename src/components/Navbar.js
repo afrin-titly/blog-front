@@ -49,7 +49,7 @@ const Navbar = () => {
         <div>
           <span className="block mt-4 lg:inline-block lg:mt-0 text-amber-100 hover:text-white mr-4">
             {
-              jwt ? (
+              jwt && (
               <>
                 <p className='text-white'> Hi {currentUser} </p>
                 <ul className='list-none'>
@@ -57,10 +57,7 @@ const Navbar = () => {
                   <li className='inline'> <button onClick={logout}> Logout </button> </li>
                 </ul>
               </>
-              ) :
-              <>
-                <Link to="/login" > Login </Link>
-              </>
+              )
             }
 
           </span>

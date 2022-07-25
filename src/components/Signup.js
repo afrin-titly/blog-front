@@ -1,8 +1,10 @@
 import React from "react"
 import { toast } from "react-hot-toast"
 import { create } from "../lib/users"
+import { useNavigate } from "react-router-dom"
 
 const Signup = () => {
+  const navigate = useNavigate()
   const [user, setUser] = React.useState({
     first_name: '',
     last_name: '',
@@ -23,8 +25,8 @@ const Signup = () => {
     const response = await create(user)
     if(response.data.message) {
       toast.success(response.data.message)
+      navigate('/login')
     } else {
-
       toast.error(response.data.error)
     }
 

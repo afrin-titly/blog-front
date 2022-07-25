@@ -1,14 +1,21 @@
 import React from 'react'
 import toast from 'react-hot-toast'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, useNavigate, useSearchParams } from 'react-router-dom'
 import { useAuthContext } from '../context/AuthContext'
 import { authenticate } from '../lib/session'
 
 
 function Login() {
+  const [params] = useSearchParams()
   const [user, setUser] = React.useState({})
   const navigate = useNavigate();
   const { setValidToken, userLogin } = useAuthContext()
+
+  React.useEffect(()=>{
+    if(params.get('confirmed') === 'true' ) {
+      toast.success("Account varified.")
+    }
+  },[])
 
   const loginUser = async (e) => {
     e.preventDefault()
@@ -20,6 +27,7 @@ function Login() {
     } else {
       console.log(response.data)
       toast.error(response.data.error)
+      return
     }
   }
 
