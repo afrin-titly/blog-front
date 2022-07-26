@@ -4,9 +4,11 @@ import MoreMenu from './MoreMenu'
 import DropdownList from './DropdownList'
 import { deletePost } from '../lib/posts'
 import toast from 'react-hot-toast'
+import { useAuthContext } from '../context/AuthContext'
 
 export const PostCard = ({post, mypage, getUserPosts}) => {
   const node = React.createRef()
+  const { isAdmin } = useAuthContext()
   const [showDropdown, setShowDropdown] = React.useState(false)
 
   const deletepost = async () => {
@@ -33,11 +35,11 @@ export const PostCard = ({post, mypage, getUserPosts}) => {
         window.removeEventListener('mousedown', clickOutside);
     }
   },[showDropdown])
-
   return (
     <div className="p-6 max-w-sm md:max-w-3xl bg-white rounded-lg border border-gray-200 shadow-md dark:white dark:border-gray-700">
       <div className='float-right'>
-        { mypage && <MoreMenu
+        { (mypage !== undefined || isAdmin) &&
+        <MoreMenu
         DropdownList={<DropdownList post={post} deletepost={deletepost} inputRef={node} />}
         showDropdown={showDropdown}
         setShowDropdown={setShowDropdown}

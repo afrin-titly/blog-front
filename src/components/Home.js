@@ -23,7 +23,7 @@ const Home = () => {
     setSuggestedUsers(res)
   }
   const renderPosts = allposts.map((post)=>(
-    <PostCard key={post.id} post={post} />
+    <PostCard key={post.id} post={post}  />
   ))
   const renderSuggestedUsers = suggestedUsers.suggest_to_follow?.map((user) =>(
     <Link to={`/users/${user.id}`} key={user.id}>

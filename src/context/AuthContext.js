@@ -10,6 +10,7 @@ export const AuthProvider = ( {children })=> {
   const [currentUser, setCurrentUser] = React.useState('')
   const [validToken, setValidToken] = React.useState(false)
   const navigate = useNavigate();
+  const [isAdmin, setIsAdmin] = React.useState(false)
 
   const decoded = React.useRef('')
 
@@ -46,7 +47,8 @@ export const AuthProvider = ( {children })=> {
     validToken,
     setValidToken,
     isExpired,
-    // userLogin,
+    isAdmin,
+    setIsAdmin,
   }
 
   return (

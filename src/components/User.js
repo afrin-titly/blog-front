@@ -55,11 +55,11 @@ const User = ({id = null, mypage=false}) => {
         <div className='flex justify-center space-x-3' >
           { !mypage &&
           <>
-          <h2 className='text-3xl font-bold text-blue-600'> {userInfo.user?.name} </h2>
-          { userInfo.user?.is_following ? (
-              <button type='button' onClick={startUnfollow}> <span> <RiUserUnfollowFill size={40} className='text-red-500'/></span> </button>
-            ) : (<button type='button' onClick={startToFollow}><span> <RiUserFollowFill size={40} className='text-green-500'/> </span></button>)}
-          </>
+            <h2 className='text-3xl font-bold text-blue-600'> {userInfo.user?.name} </h2>
+            { userInfo.user?.is_following ? (
+                <button type='button' onClick={startUnfollow}> <span> <RiUserUnfollowFill size={40} className='text-red-500'/></span> </button>
+              ) : (<button type='button' onClick={startToFollow}><span> <RiUserFollowFill size={40} className='text-green-500'/> </span></button>)}
+            </>
           }
         </div>
 

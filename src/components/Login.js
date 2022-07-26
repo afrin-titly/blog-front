@@ -9,7 +9,7 @@ function Login() {
   const [params] = useSearchParams()
   const [user, setUser] = React.useState({})
   const navigate = useNavigate();
-  const { setValidToken, userLogin } = useAuthContext()
+  const { setValidToken, setIsAdmin } = useAuthContext()
 
   React.useEffect(()=>{
     if(params.get('confirmed') === 'true' ) {
@@ -23,6 +23,10 @@ function Login() {
     if(response.data.message) {
       toast.success(response.data.message)
       setValidToken(true)
+      const uid = await localStorage.getItem("user")
+      if(uid === 1) {
+        setIsAdmin(true)
+      }
       navigate('/home')
     } else {
       console.log(response.data)
